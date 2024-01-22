@@ -1,3 +1,4 @@
+let index = 0
 tiles.loadMap(tiles.createMap(tilemap`level 1`))
 let Sprites = [
 img`
@@ -74,7 +75,3 @@ img`
     `
 ]
 pause(100)
-let index = 0
-for (let index2 = 0; index2 < randint(5, 10); index2++) {
-	
-}
