@@ -22,8 +22,7 @@ namespace userconfig {
     export const ARCADE_SCREEN_HEIGHT = 255
 }
 PowerUp(1)
-let Tilemaps: number[] = []
-tiles.loadMap(tiles.createMap(tilemap`level 1`))
+let Tilemaps = [tiles.createMap(tilemap`level 1`), tiles.createMap(tilemap`level`), tiles.createMap(tilemap`level6`)]
 let mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
