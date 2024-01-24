@@ -14,11 +14,6 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "fire boy water girl0"
     },
-    "image4": {
-        "data": "hwQQABAAAAAAAAAAAAAAAAAAAHB3AAAAAAAHAAAAAAAAB3cHAAAAAAAHdwcAAAAAAAAAAAAAAABwAAAAAAAAAAAHAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "myImage0"
-    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",
