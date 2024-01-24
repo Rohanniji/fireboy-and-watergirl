@@ -1,3 +1,4 @@
+let list: Image[] = []
 let Player_1: Sprite = null
 namespace userconfig {
     export const ARCADE_SCREEN_WIDTH = 255
@@ -486,7 +487,11 @@ img`
 pause(100)
 let index = 0
 for (let index2 = 0; index2 < randint(5, 10); index2++) {
-    let list: Image[] = []
     Player_1 = sprites.create(list[index % 4], SpriteKind.Player)
     Player_1.setPosition(139, 93)
+    index += 1
+    pause(300)
+    sprites.destroy(Player_1)
 }
+Player_1 = sprites.create(list[index % 4], SpriteKind.Player)
+Player_1.setPosition(139, 93)
