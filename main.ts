@@ -10,10 +10,14 @@ function PowerUp (num: number) {
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
     sprites.destroy(Player_1)
     game.setGameOverEffect(true, effects.confetti)
+    tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
+    tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 })
 scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava1, function (sprite, location) {
     sprites.destroy(Player_2)
     game.setGameOverEffect(true, effects.confetti)
+    tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
+    tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 })
 let Player_2: Sprite = null
 let Player_1: Sprite = null
