@@ -1,7 +1,14 @@
 function PowerUp (num: number) {
     game.splash(game.askForNumber("0-4 For extra life/5-9 For slower gravity", num))
     if (num < 5) {
-    	
+        if (Player_1.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardWater)) {
+            tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
+            tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
+        }
+        if (Player_2.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardLava1)) {
+            tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
+            tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
+        }
     } else {
         Player_1.setVelocity(0, 150)
         Player_2.setVelocity(0, 150)
