@@ -1,11 +1,28 @@
 let Player_2: Sprite = null
-let list: Image[] = []
 let Player_1: Sprite = null
 namespace userconfig {
     export const ARCADE_SCREEN_WIDTH = 255
     export const ARCADE_SCREEN_HEIGHT = 255
 }
 tiles.loadMap(tiles.createMap(tilemap`level 1`))
+let mySprite = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
 let Sprites = [
 assets.image`fire boy water girl`,
 assets.image`fire boy water girl0`,
@@ -488,24 +505,29 @@ img`
 pause(100)
 let index = 0
 for (let index2 = 0; index2 < randint(5, 10); index2++) {
-    Player_1 = sprites.create(list[index % 4], SpriteKind.Player)
+    Player_1 = sprites.create(Sprites[index % 4], SpriteKind.Player)
     Player_1.setPosition(139, 93)
     index += 1
     pause(300)
     sprites.destroy(Player_1)
 }
-Player_1 = sprites.create(list[index % 4], SpriteKind.Player)
+Player_1 = sprites.create(Sprites[index % 4], SpriteKind.Player)
 Player_1.setPosition(139, 93)
+controller.player1.moveSprite(Player_1)
 pause(300)
 index = 0
 for (let index2 = 0; index2 < randint(5, 10); index2++) {
-    Player_2 = sprites.create(list[index % 4], SpriteKind.Player)
+    Player_2 = sprites.create(Sprites[index % 4], SpriteKind.Player)
     Player_2.setPosition(139, 93)
     index += 1
     pause(300)
     sprites.destroy(Player_2)
 }
-Player_2 = sprites.create(list[index % 4], SpriteKind.Player)
+Player_2 = sprites.create(Sprites[index % 4], SpriteKind.Player)
 Player_2.setPosition(139, 93)
+controller.player2.moveSprite(Player_2)
 Player_1.setVelocity(0, 120)
 Player_2.setVelocity(0, 120)
+game.onUpdate(function () {
+    mySprite.setPosition((Player_1.x + Player_2.x) / 2, (Player_1.y + Player_2.y) / 2)
+})
