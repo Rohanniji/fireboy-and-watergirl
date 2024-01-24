@@ -1,4 +1,8 @@
-let Player_1 = 0
+let Player_1: Sprite = null
+namespace userconfig {
+    export const ARCADE_SCREEN_WIDTH = 255
+    export const ARCADE_SCREEN_HEIGHT = 255
+}
 tiles.loadMap(tiles.createMap(tilemap`level 1`))
 let Sprites = [
 assets.image`fire boy water girl`,
@@ -482,5 +486,7 @@ img`
 pause(100)
 let index = 0
 for (let index2 = 0; index2 < randint(5, 10); index2++) {
-    Player_1 = 0
+    let list: Image[] = []
+    Player_1 = sprites.create(list[index % 4], SpriteKind.Player)
+    Player_1.setPosition(139, 93)
 }
