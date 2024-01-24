@@ -507,3 +507,5 @@ for (let index2 = 0; index2 < randint(5, 10); index2++) {
 }
 Player_2 = sprites.create(list[index % 4], SpriteKind.Player)
 Player_2.setPosition(139, 93)
+Player_1.setVelocity(0, 120)
+Player_2.setVelocity(0, 120)
