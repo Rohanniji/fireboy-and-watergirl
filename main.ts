@@ -1,3 +1,4 @@
+let Player_2: Sprite = null
 let list: Image[] = []
 let Player_1: Sprite = null
 namespace userconfig {
@@ -495,3 +496,14 @@ for (let index2 = 0; index2 < randint(5, 10); index2++) {
 }
 Player_1 = sprites.create(list[index % 4], SpriteKind.Player)
 Player_1.setPosition(139, 93)
+pause(300)
+index = 0
+for (let index2 = 0; index2 < randint(5, 10); index2++) {
+    Player_2 = sprites.create(list[index % 4], SpriteKind.Player)
+    Player_2.setPosition(139, 93)
+    index += 1
+    pause(300)
+    sprites.destroy(Player_2)
+}
+Player_2 = sprites.create(list[index % 4], SpriteKind.Player)
+Player_2.setPosition(139, 93)
