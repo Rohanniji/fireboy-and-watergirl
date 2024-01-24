@@ -19,14 +19,13 @@ scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava1, function
 })
 let Player_2: Sprite = null
 let Player_1: Sprite = null
-let list: tiles.WorldMap[] = []
 namespace userconfig {
     export const ARCADE_SCREEN_WIDTH = 255
     export const ARCADE_SCREEN_HEIGHT = 255
 }
 PowerUp(1)
-let Tilemaps = [tiles.createMap(tilemap`level 1`), tiles.createMap(tilemap`level3`), tiles.createMap(tilemap`level4`)]
-tiles.loadMap(list._pickRandom())
+let Tilemaps = [tilemap`level 1`, tilemap`level3`, tilemap`level12`]
+tiles.setCurrentTilemap(Tilemaps._pickRandom())
 let mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
