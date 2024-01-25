@@ -15,6 +15,12 @@
         "tilemapTile": true,
         "displayName": "myTile"
     },
+    "tile2": {
+        "data": "hwQQABAAAAAREREREREREXd3d3d3d3d3d3d3d3d3d3d3EXF3d3d3d3d3d3d3d3d3d3d3d3d3d3d3EXF3d3d3d3d3d3d3d3d3d3d3d3d3d3d3EXF3d3d3d3d3d3d3d3d3d3d3d3d3d3d3EXF3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3dw==",
+        "mimeType": "image/x-mkcd-f4",
+        "tilemapTile": true,
+        "displayName": "myTile0"
+    },
     "level1": {
         "id": "level1",
         "mimeType": "application/mkcd-tilemap",
