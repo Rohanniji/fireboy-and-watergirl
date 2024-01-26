@@ -4,9 +4,10 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 })
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    Player_1.setVelocity(0, -150)
-    pause(500)
-    Player_1.setVelocity(0, 200)
+    if (jump < 2) {
+        jump += 1
+        mySprite.vy = -150
+    }
 })
 scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function (sprite, location) {
     sprites.destroy(Player_2, effects.spray, 500)
@@ -49,15 +50,17 @@ function Basecode () {
     Player_2 = sprites.create(assets.image`fire boy water girl0`, SpriteKind.Projectile)
     scaling.scaleByPercent(Player_2, -75, ScaleDirection.Uniformly, ScaleAnchor.Middle)
     scaling.scaleByPercent(Player_1, -75, ScaleDirection.Uniformly, ScaleAnchor.Middle)
-    controller.player1.moveSprite(Player_1, 200, 0)
-    controller.player2.moveSprite(Player_2, 200, 0)
+    controller.player1.moveSprite(Player_1, 100, 0)
+    controller.player2.moveSprite(Player_2, 100, 0)
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
-    Player_1.setVelocity(0, 250)
-    Player_2.setVelocity(0, 250)
+    Player_1.setVelocity(0, 300)
+    Player_2.setVelocity(0, 300)
+    jump = 0
 }
-let mySprite: Sprite = null
 let Tilemaps: tiles.TileMapData[] = []
+let mySprite: Sprite = null
+let jump = 0
 let Player_2: Sprite = null
 let Player_1: Sprite = null
 namespace userconfig {
