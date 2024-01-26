@@ -4,9 +4,17 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 })
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (0 < 0) {
+    if (jump < 2) {
         jump += 1
         Player_1.vy = -150
+    }
+})
+scene.onHitWall(SpriteKind.Player, function (sprite, location) {
+    if (!(Player_1.isHittingTile(CollisionDirection.Top))) {
+        jump = 0
+    }
+    if (Player_1.isHittingTile(CollisionDirection.Right) || Player_1.isHittingTile(CollisionDirection.Right)) {
+        Player_1.vy = 0
     }
 })
 scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function (sprite, location) {
@@ -58,6 +66,14 @@ function Basecode () {
     Player_2.setVelocity(0, 300)
     jump = 0
 }
+scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
+    if (!(Player_2.isHittingTile(CollisionDirection.Top))) {
+        jump = 0
+    }
+    if (Player_2.isHittingTile(CollisionDirection.Right) || Player_2.isHittingTile(CollisionDirection.Right)) {
+        Player_2.vy = 0
+    }
+})
 let mySprite: Sprite = null
 let Tilemaps: tiles.TileMapData[] = []
 let jump = 0
