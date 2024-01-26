@@ -13,7 +13,7 @@ scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     if (!(Player_1.isHittingTile(CollisionDirection.Top))) {
         jump = 0
     }
-    if (Player_1.isHittingTile(CollisionDirection.Right) || Player_1.isHittingTile(CollisionDirection.Right)) {
+    if (Player_1.isHittingTile(CollisionDirection.Right) || Player_1.isHittingTile(CollisionDirection.Left)) {
         Player_1.vy = 0
     }
 })
@@ -70,7 +70,7 @@ scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
     if (!(Player_2.isHittingTile(CollisionDirection.Top))) {
         jump = 0
     }
-    if (Player_2.isHittingTile(CollisionDirection.Right) || Player_2.isHittingTile(CollisionDirection.Right)) {
+    if (Player_2.isHittingTile(CollisionDirection.Right) || Player_2.isHittingTile(CollisionDirection.Left)) {
         Player_2.vy = 0
     }
 })
