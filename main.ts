@@ -6,7 +6,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     Player_1.setVelocity(0, -150)
     pause(500)
-    Player_1.setVelocity(0, 100)
+    Player_1.setVelocity(0, 200)
 })
 scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function (sprite, location) {
     sprites.destroy(Player_2, effects.spray, 500)
