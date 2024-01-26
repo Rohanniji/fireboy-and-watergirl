@@ -22,6 +22,12 @@ scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 })
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (jump < 2) {
+        jump += 1
+        Player_2.vy = -150
+    }
+})
 scene.onOverlapTile(SpriteKind.Projectile, assets.tile`myTile0`, function (sprite, location) {
     game.splash("Game Over")
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
@@ -62,8 +68,8 @@ function Basecode () {
     controller.player2.moveSprite(Player_2, 100, 0)
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
-    Player_1.setVelocity(0, 300)
-    Player_2.setVelocity(0, 300)
+    Player_1.ay = 300
+    Player_2.ay = 300
     jump = 0
 }
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
@@ -104,8 +110,8 @@ if (Num < 5) {
     }
 } else {
     Basecode()
-    Player_1.setVelocity(0, 150)
-    Player_2.setVelocity(0, 150)
+    Player_1.setVelocity(0, 225)
+    Player_2.setVelocity(0, 225)
 }
 game.onUpdate(function () {
     mySprite.setPosition((Player_1.x + Player_2.x) / 2, (Player_1.y + Player_2.y) / 2)
