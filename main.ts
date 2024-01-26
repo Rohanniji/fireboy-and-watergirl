@@ -113,6 +113,10 @@ if (Num < 5) {
     Player_1.setVelocity(0, 225)
     Player_2.setVelocity(0, 225)
 }
+if (Player_1.tileKindAt(TileDirection.Center, sprites.dungeon.chestClosed) && Player_2.tileKindAt(TileDirection.Center, sprites.dungeon.chestClosed)) {
+    game.splash("You Win!")
+    Basecode()
+}
 game.onUpdate(function () {
     mySprite.setPosition((Player_1.x + Player_2.x) / 2, (Player_1.y + Player_2.y) / 2)
     scene.cameraFollowSprite(mySprite)
