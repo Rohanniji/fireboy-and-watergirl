@@ -35,20 +35,24 @@ scene.onOverlapTile(SpriteKind.Projectile, assets.tile`myTile0`, function (sprit
 })
 function doSomething (num: number) {
     if (num < 5) {
-        if (Player_1.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardWater)) {
-            game.splash("You have one more chance")
-            tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 13))
-            tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 13))
+        while (FireDeaths < 2) {
             if (Player_1.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardWater)) {
-                game.splash("Game Over")
-            } else {
-                doSomething(1)
+                game.splash("You have one more chance")
+                tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 13))
+                tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 13))
             }
         }
-        if (Player_2.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardLava0)) {
-            game.splash("You have one more chance")
-            tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 13))
-            tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 13))
+        if (Player_1.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardWater)) {
+            game.splash("Game Over")
+        }
+        if (true) {
+            while (WaterDeaths < 2) {
+                if (Player_2.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardLava0)) {
+                    game.splash("You have one more chance")
+                    tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 13))
+                    tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 13))
+                }
+            }
             if (Player_2.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardLava0)) {
                 game.splash("Game Over")
             }
@@ -74,6 +78,8 @@ scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
         Player_2.vy = 0
     }
 })
+let WaterDeaths = 0
+let FireDeaths = 0
 let jump = 0
 let Player_2: Sprite = null
 let Player_1: Sprite = null
@@ -114,8 +120,8 @@ tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 Player_1.ay = 300
 Player_2.ay = 300
 jump = 0
-let FireDeaths = 0
-let WaterDeaths = 0
+FireDeaths = 0
+WaterDeaths = 0
 game.onUpdate(function () {
     mySprite.setPosition((Player_1.x + Player_2.x) / 2, (Player_1.y + Player_2.y) / 2)
     scene.cameraFollowSprite(mySprite)
