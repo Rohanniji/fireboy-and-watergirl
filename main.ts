@@ -17,16 +17,6 @@ scene.onOverlapTile(SpriteKind.Player, sprites.builtin.field0, function (sprite,
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 })
-scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function (sprite, location) {
-    while (WaterDeaths < 2) {
-        WaterDeaths += 1
-        sprites.destroy(Player_2, effects.spray, 500)
-        game.splash("You have one more chance")
-        tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 13))
-        tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 13))
-    }
-    game.splash("Game Over")
-})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (jump < 2) {
         jump += 1
@@ -39,10 +29,36 @@ scene.onOverlapTile(SpriteKind.Projectile, sprites.builtin.field0, function (spr
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 })
 function doSomething (num: number) {
+    Tilemaps = [tilemap`level 1`, tilemap`level3`, tilemap`level11`]
+    tiles.setCurrentTilemap(Tilemaps._pickRandom())
     if (num < 5) {
+        tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
+        tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
         Player_1.ay = 300
         Player_2.ay = 300
+        while (FireDeaths < 2) {
+            if (Player_1.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardWater)) {
+                FireDeaths += 1
+                sprites.destroy(Player_1, effects.spray, 500)
+                game.splash("You have one more chance")
+                tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 13))
+                tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 13))
+            }
+        }
+        game.splash("Game Over")
+        while (WaterDeaths < 2) {
+            if (Player_2.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardLava0)) {
+                WaterDeaths += 1
+                sprites.destroy(Player_2, effects.spray, 500)
+                game.splash("You have one more chance")
+                tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 13))
+                tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 13))
+            }
+        }
+        game.splash("Game Over")
     } else {
+        tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
+        tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
         Player_1.ay = 225
         Player_2.ay = 225
     }
@@ -50,16 +66,6 @@ function doSomething (num: number) {
         game.splash("You Win!")
     }
 }
-scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
-    while (FireDeaths < 2) {
-        FireDeaths += 1
-        sprites.destroy(Player_1, effects.spray, 500)
-        game.splash("You have one more chance")
-        tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 13))
-        tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 13))
-    }
-    game.splash("Game Over")
-})
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
     if (!(Player_2.isHittingTile(CollisionDirection.Top))) {
         jump = 0
@@ -68,6 +74,7 @@ scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
         Player_2.vy = 0
     }
 })
+let Tilemaps: tiles.TileMapData[] = []
 let WaterDeaths = 0
 let FireDeaths = 0
 let jump = 0
@@ -77,9 +84,6 @@ namespace userconfig {
     export const ARCADE_SCREEN_WIDTH = 255
     export const ARCADE_SCREEN_HEIGHT = 255
 }
-doSomething(game.askForNumber("0-4 For extra life/5-9 For slower gravity", 1))
-let Tilemaps = [tilemap`level 1`, tilemap`level3`, tilemap`level11`]
-tiles.setCurrentTilemap(Tilemaps._pickRandom())
 let mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -104,11 +108,10 @@ scaling.scaleByPercent(Player_2, -75, ScaleDirection.Uniformly, ScaleAnchor.Midd
 scaling.scaleByPercent(Player_1, -75, ScaleDirection.Uniformly, ScaleAnchor.Middle)
 controller.player1.moveSprite(Player_1, 100, 0)
 controller.player2.moveSprite(Player_2, 100, 0)
-tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
-tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 jump = 0
 FireDeaths = 0
 WaterDeaths = 0
+doSomething(game.askForNumber("0-4 For extra life/5-9 For slower gravity", 1))
 game.onUpdate(function () {
     mySprite.setPosition((Player_1.x + Player_2.x) / 2, (Player_1.y + Player_2.y) / 2)
     scene.cameraFollowSprite(mySprite)
