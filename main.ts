@@ -35,8 +35,8 @@ function TilemapSetUp (num: number) {
         tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
         tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
     }
-    if (Player_1.tileKindAt(TileDirection.Center, sprites.dungeon.chestClosed) && Player_2.tileKindAt(TileDirection.Center, sprites.dungeon.chestClosed)) {
-        game.splash("You Win!")
+    if (Player_1.tileKindAt(TileDirection.Center, assets.tile`myTile1`) && Player_2.tileKindAt(TileDirection.Center, assets.tile`myTile0`)) {
+        game.gameOver(true)
     }
 }
 scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function (sprite, location) {
