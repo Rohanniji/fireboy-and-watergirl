@@ -47,6 +47,11 @@ function doSomething (num: number) {
         tiles.setCurrentTilemap(Tilemaps._pickRandom())
         tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
         tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
+        Rand = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
+        while (!(tiles.tileAtLocationEquals(tiles.getTileLocation(tiles.locationXY(Rand, tiles.XY.column), tiles.locationXY(Rand, tiles.XY.row) - 1), assets.tile`myTile`))) {
+            Rand = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
+        }
+        tiles.setTileAt(tiles.getTileLocation(tiles.locationXY(Rand, tiles.XY.column), tiles.locationXY(Rand, tiles.XY.row) - 1), sprites.dungeon.collectibleRedCrystal)
     } else {
         Player_1.ay = 200
         Player_2.ay = 200
@@ -54,6 +59,11 @@ function doSomething (num: number) {
         tiles.setCurrentTilemap(Tilemaps._pickRandom())
         tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
         tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
+        Rand = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
+        while (!(tiles.tileAtLocationEquals(tiles.getTileLocation(tiles.locationXY(Rand, tiles.XY.column), tiles.locationXY(Rand, tiles.XY.row) - 1), assets.tile`myTile`))) {
+            Rand = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
+        }
+        tiles.setTileAt(tiles.getTileLocation(tiles.locationXY(Rand, tiles.XY.column), tiles.locationXY(Rand, tiles.XY.row) - 1), sprites.dungeon.collectibleRedCrystal)
     }
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
@@ -79,6 +89,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleRedCrystal, fu
     tiles.setTileAt(location, assets.tile`myTile`)
     info.changeScoreBy(1)
 })
+let Rand: tiles.Location = null
 let Tilemaps: tiles.TileMapData[] = []
 let JumpWater = 0
 let JumpFire = 0
