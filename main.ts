@@ -28,21 +28,6 @@ scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function
     }
     lastTimestamp = game.runtime()
 })
-function Movement () {
-    Player_1 = sprites.create(assets.image`fire boy water girl`, SpriteKind.Player)
-    Player_2 = sprites.create(assets.image`fire boy water girl0`, SpriteKind.Projectile)
-    scaling.scaleByPercent(Player_2, -75, ScaleDirection.Uniformly, ScaleAnchor.Middle)
-    scaling.scaleByPercent(Player_1, -75, ScaleDirection.Uniformly, ScaleAnchor.Middle)
-    controller.player1.moveSprite(Player_1, 100, 0)
-    controller.player2.moveSprite(Player_2, 100, 0)
-    if (mySprite == 1) {
-        Player_1.ay = 300
-        Player_2.ay = 300
-    } else {
-        Player_1.ay = 200
-        Player_2.ay = 200
-    }
-}
 scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.collectibleBlueCrystal, function (sprite, location) {
     tiles.setTileAt(location, assets.tile`myTile`)
     info.changeScoreBy(1)
