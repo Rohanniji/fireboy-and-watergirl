@@ -47,11 +47,16 @@ function doSomething (num: number) {
         tiles.setCurrentTilemap(Tilemaps._pickRandom())
         tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
         tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
-        Rand = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
-        while (!(tiles.tileAtLocationEquals(tiles.getTileLocation(tiles.locationXY(Rand, tiles.XY.column), tiles.locationXY(Rand, tiles.XY.row) - 1), assets.tile`myTile`))) {
-            Rand = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
+        RandFire = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
+        while (!(tiles.tileAtLocationEquals(tiles.getTileLocation(tiles.locationXY(RandFire, tiles.XY.column), tiles.locationXY(RandFire, tiles.XY.row) - 1), assets.tile`myTile`))) {
+            RandFire = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
         }
-        tiles.setTileAt(tiles.getTileLocation(tiles.locationXY(Rand, tiles.XY.column), tiles.locationXY(Rand, tiles.XY.row) - 1), sprites.dungeon.collectibleRedCrystal)
+        tiles.setTileAt(tiles.getTileLocation(tiles.locationXY(RandFire, tiles.XY.column), tiles.locationXY(RandFire, tiles.XY.row) - 1), sprites.dungeon.collectibleRedCrystal)
+        RandWater = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
+        while (!(tiles.tileAtLocationEquals(tiles.getTileLocation(tiles.locationXY(RandWater, tiles.XY.column), tiles.locationXY(RandWater, tiles.XY.row) - 1), assets.tile`myTile`))) {
+            RandWater = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
+        }
+        tiles.setTileAt(tiles.getTileLocation(tiles.locationXY(RandWater, tiles.XY.column), tiles.locationXY(RandWater, tiles.XY.row) - 1), sprites.dungeon.collectibleBlueCrystal)
     } else {
         Player_1.ay = 200
         Player_2.ay = 200
@@ -59,11 +64,16 @@ function doSomething (num: number) {
         tiles.setCurrentTilemap(Tilemaps._pickRandom())
         tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
         tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
-        Rand = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
-        while (!(tiles.tileAtLocationEquals(tiles.getTileLocation(tiles.locationXY(Rand, tiles.XY.column), tiles.locationXY(Rand, tiles.XY.row) - 1), assets.tile`myTile`))) {
-            Rand = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
+        RandFire = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
+        while (!(tiles.tileAtLocationEquals(tiles.getTileLocation(tiles.locationXY(RandFire, tiles.XY.column), tiles.locationXY(RandFire, tiles.XY.row) - 1), assets.tile`myTile`))) {
+            RandFire = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
         }
-        tiles.setTileAt(tiles.getTileLocation(tiles.locationXY(Rand, tiles.XY.column), tiles.locationXY(Rand, tiles.XY.row) - 1), sprites.dungeon.collectibleRedCrystal)
+        tiles.setTileAt(tiles.getTileLocation(tiles.locationXY(RandFire, tiles.XY.column), tiles.locationXY(RandFire, tiles.XY.row) - 1), sprites.dungeon.collectibleRedCrystal)
+        RandWater = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
+        while (!(tiles.tileAtLocationEquals(tiles.getTileLocation(tiles.locationXY(RandWater, tiles.XY.column), tiles.locationXY(RandWater, tiles.XY.row) - 1), assets.tile`myTile`))) {
+            RandWater = tiles.getTilesByType(sprites.builtin.brick)._pickRandom()
+        }
+        tiles.setTileAt(tiles.getTileLocation(tiles.locationXY(RandWater, tiles.XY.column), tiles.locationXY(RandWater, tiles.XY.row) - 1), sprites.dungeon.collectibleBlueCrystal)
     }
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
@@ -89,7 +99,8 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleRedCrystal, fu
     tiles.setTileAt(location, assets.tile`myTile`)
     info.changeScoreBy(1)
 })
-let Rand: tiles.Location = null
+let RandWater: tiles.Location = null
+let RandFire: tiles.Location = null
 let Tilemaps: tiles.TileMapData[] = []
 let JumpWater = 0
 let JumpFire = 0
