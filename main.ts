@@ -55,9 +55,6 @@ function doSomething (num: number) {
         tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
         tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
     }
-    if (Player_1.tileKindAt(TileDirection.Center, assets.tile`myTile1`) && Player_2.tileKindAt(TileDirection.Center, assets.tile`myTile0`)) {
-        game.splash("You Win!")
-    }
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
@@ -106,3 +103,8 @@ let jump = 0
 FireDeaths = 0
 WaterDeaths = 0
 lastTimestamp = game.runtime()
+game.onUpdate(function () {
+    if (Player_1.tileKindAt(TileDirection.Center, assets.tile`myTile1`) && Player_2.tileKindAt(TileDirection.Center, assets.tile`myTile0`)) {
+        game.gameOver(true)
+    }
+})
