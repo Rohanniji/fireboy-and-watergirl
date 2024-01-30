@@ -18,14 +18,15 @@ scene.onOverlapTile(SpriteKind.Player, sprites.builtin.field0, function (sprite,
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 })
 scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function (sprite, location) {
+    tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
+    tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
     WaterDeaths += 1
-    while (WaterDeaths < 1) {
-        sprites.destroy(Player_2, effects.spray, 500)
+    if (WaterDeaths >= 2 && game.runtime() - lastTimestamp >= 500) {
+        game.gameOver(false)
+    } else {
         game.splash("You have one more chance")
-        Movement()
-        pauseUntil(() => Player_1.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardWater) || Player_2.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardLava0))
-        game.splash("Game Over")
     }
+    lastTimestamp = game.runtime()
 })
 function Movement () {
     Player_1 = sprites.create(assets.image`fire boy water girl`, SpriteKind.Player)
@@ -83,11 +84,12 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sp
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
     FireDeaths += 1
-    if (FireDeaths >= 2) {
+    if (FireDeaths >= 2 && game.runtime() - lastTimestamp >= 500) {
         game.gameOver(false)
     } else {
         game.splash("You have one more chance")
     }
+    lastTimestamp = game.runtime()
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
     if (!(Player_2.isHittingTile(CollisionDirection.Top))) {
@@ -103,6 +105,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleRedCrystal, fu
 })
 let Tilemaps: tiles.TileMapData[] = []
 let mySprite = 0
+let lastTimestamp = 0
 let WaterDeaths = 0
 let FireDeaths = 0
 let jump = 0
@@ -114,12 +117,13 @@ namespace userconfig {
 }
 Player_1 = sprites.create(assets.image`fire boy water girl`, SpriteKind.Player)
 Player_2 = sprites.create(assets.image`fire boy water girl0`, SpriteKind.Projectile)
-scaling.scaleByPercent(Player_2, -75, ScaleDirection.Uniformly, ScaleAnchor.Middle)
-scaling.scaleByPercent(Player_1, -75, ScaleDirection.Uniformly, ScaleAnchor.Middle)
 controller.player1.moveSprite(Player_1, 100, 0)
 controller.player2.moveSprite(Player_2, 100, 0)
+Player_1.setScale(0.25, ScaleAnchor.Middle)
+scaling.scaleByPercent(Player_2, -75, ScaleDirection.Uniformly, ScaleAnchor.Middle)
 doSomething(game.askForNumber("You get 2 lives each character! Press 5-9 for extra help", 1))
 info.setScore(0)
 jump = 0
 FireDeaths = 0
 WaterDeaths = 0
+lastTimestamp = game.runtime()
