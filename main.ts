@@ -58,13 +58,12 @@ function doSomething (num: number) {
     }
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
-    while (FireDeaths < 2) {
+    while (FireDeaths < 1) {
         FireDeaths += 1
         sprites.destroy(Player_1, effects.spray, 2000)
         game.splash("You have one more chance")
         doSomething2()
     }
-    game.splash("Game Over")
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
     if (!(Player_2.isHittingTile(CollisionDirection.Top))) {
@@ -83,6 +82,8 @@ function doSomething2 () {
     controller.player2.moveSprite(Player_2, 100, 0)
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
+    Player_1.ay = 300
+    Player_2.ay = 300
 }
 let Tilemaps: tiles.TileMapData[] = []
 let WaterDeaths = 0
