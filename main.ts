@@ -1,15 +1,15 @@
-controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (jump < 2) {
-        jump += 1
-        Player_1.vy = -150
-    }
-})
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     if (!(Player_1.isHittingTile(CollisionDirection.Top))) {
         jump = 0
     }
     if (Player_1.isHittingTile(CollisionDirection.Right) || Player_1.isHittingTile(CollisionDirection.Left)) {
         Player_1.vy = 0
+    }
+})
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (jump < 2) {
+        jump += 1
+        Player_1.vy = -150
     }
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.builtin.field0, function (sprite, location) {
@@ -27,12 +27,6 @@ scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function
         game.splash("Game Over")
     }
 })
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (jump < 2) {
-        jump += 1
-        Player_2.vy = -150
-    }
-})
 function Movement () {
     Player_1 = sprites.create(assets.image`fire boy water girl`, SpriteKind.Player)
     Player_2 = sprites.create(assets.image`fire boy water girl0`, SpriteKind.Projectile)
@@ -40,8 +34,6 @@ function Movement () {
     scaling.scaleByPercent(Player_1, -75, ScaleDirection.Uniformly, ScaleAnchor.Middle)
     controller.player1.moveSprite(Player_1, 100, 0)
     controller.player2.moveSprite(Player_2, 100, 0)
-    tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
-    tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
     if (mySprite == 1) {
         Player_1.ay = 300
         Player_2.ay = 300
@@ -53,6 +45,12 @@ function Movement () {
 scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.collectibleBlueCrystal, function (sprite, location) {
     tiles.setTileAt(location, assets.tile`myTile`)
     info.changeScoreBy(1)
+})
+controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
+    if (jump < 2) {
+        jump += 1
+        Player_2.vy = -150
+    }
 })
 scene.onOverlapTile(SpriteKind.Projectile, sprites.builtin.field0, function (sprite, location) {
     game.splash("Game Over")
@@ -82,13 +80,13 @@ function doSomething (num: number) {
     }
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
+    tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
+    tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
     FireDeaths += 1
-    while (FireDeaths < 2) {
-        sprites.destroy(Player_1, effects.spray, 500)
+    if (FireDeaths >= 2) {
+        game.gameOver(false)
+    } else {
         game.splash("You have one more chance")
-        Movement()
-        pauseUntil(() => Player_1.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardWater) || Player_2.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardLava0))
-        game.splash("Game Over")
     }
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
