@@ -58,9 +58,9 @@ function doSomething (num: number) {
     }
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
-    FireDeaths += 1
     while (FireDeaths < 2) {
-        sprites.destroy(Player_1, effects.spray, 500)
+        FireDeaths += 1
+        sprites.destroy(Player_1, effects.spray, 2000)
         game.splash("You have one more chance")
         doSomething2()
     }
