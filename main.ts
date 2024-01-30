@@ -17,21 +17,20 @@ scene.onOverlapTile(SpriteKind.Player, sprites.builtin.field0, function (sprite,
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 })
-scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function (sprite, location) {
-    while (WaterDeaths < 2) {
-        WaterDeaths += 1
-        sprites.destroy(Player_2, effects.spray, 500)
-        game.splash("You have one more chance")
-        tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 13))
-        tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 13))
-    }
-    game.splash("Game Over")
-})
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (jump < 2) {
         jump += 1
         Player_2.vy = -150
     }
+})
+scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function (sprite, location) {
+    WaterDeaths += 1
+    while (WaterDeaths < 2) {
+        sprites.destroy(Player_2, effects.spray, 500)
+        game.splash("You have one more chance")
+        doSomething2()
+    }
+    game.splash("Game Over")
 })
 scene.onOverlapTile(SpriteKind.Projectile, sprites.builtin.field0, function (sprite, location) {
     game.splash("Game Over")
