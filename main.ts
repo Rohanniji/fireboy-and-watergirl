@@ -17,6 +17,28 @@ scene.onOverlapTile(SpriteKind.Player, sprites.builtin.field0, function (sprite,
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 })
+function TilemapSetUp (num: number) {
+    if (num < 5) {
+        mySprite = 1
+        Player_1.ay = 300
+        Player_2.ay = 300
+        Tilemaps = [tilemap`level 1`, tilemap`level3`, tilemap`level11`]
+        tiles.setCurrentTilemap(Tilemaps._pickRandom())
+        tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
+        tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
+    } else {
+        mySprite = 2
+        Player_1.ay = 200
+        Player_2.ay = 200
+        Tilemaps = [tilemap`level 1`, tilemap`level3`, tilemap`level11`]
+        tiles.setCurrentTilemap(Tilemaps._pickRandom())
+        tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
+        tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
+    }
+    if (Player_1.tileKindAt(TileDirection.Center, sprites.dungeon.chestClosed) && Player_2.tileKindAt(TileDirection.Center, sprites.dungeon.chestClosed)) {
+        game.splash("You Win!")
+    }
+}
 scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function (sprite, location) {
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
@@ -43,28 +65,6 @@ scene.onOverlapTile(SpriteKind.Projectile, sprites.builtin.field0, function (spr
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
 })
-function doSomething (num: number) {
-    if (num < 5) {
-        mySprite = 1
-        Player_1.ay = 300
-        Player_2.ay = 300
-        Tilemaps = [tilemap`level 1`, tilemap`level3`, tilemap`level11`]
-        tiles.setCurrentTilemap(Tilemaps._pickRandom())
-        tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
-        tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
-    } else {
-        mySprite = 2
-        Player_1.ay = 200
-        Player_2.ay = 200
-        Tilemaps = [tilemap`level 1`, tilemap`level3`, tilemap`level11`]
-        tiles.setCurrentTilemap(Tilemaps._pickRandom())
-        tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
-        tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
-    }
-    if (Player_1.tileKindAt(TileDirection.Center, sprites.dungeon.chestClosed) && Player_2.tileKindAt(TileDirection.Center, sprites.dungeon.chestClosed)) {
-        game.splash("You Win!")
-    }
-}
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
     tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
@@ -106,7 +106,7 @@ controller.player1.moveSprite(Player_1, 100, 0)
 controller.player2.moveSprite(Player_2, 100, 0)
 Player_1.setScale(0.25, ScaleAnchor.Middle)
 scaling.scaleByPercent(Player_2, -75, ScaleDirection.Uniformly, ScaleAnchor.Middle)
-doSomething(game.askForNumber("You get 2 lives each character! Press 5-9 for extra help", 1))
+TilemapSetUp(game.askForNumber("You get 2 lives each character! Press 5-9 for extra help", 1))
 info.setScore(0)
 jump = 0
 FireDeaths = 0
