@@ -1,21 +1,19 @@
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     if (!(Player_1.isHittingTile(CollisionDirection.Top))) {
-        jump = 0
+        JumpFire = 0
     }
     if (Player_1.isHittingTile(CollisionDirection.Right) || Player_1.isHittingTile(CollisionDirection.Left)) {
         Player_1.vy = 0
     }
 })
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (jump < 2) {
-        jump += 1
+    if (JumpFire < 1) {
+        JumpFire += 1
         Player_1.vy = -150
     }
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.builtin.field0, function (sprite, location) {
-    game.splash("Game Over")
-    tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
-    tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
+    game.gameOver(false)
 })
 scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.hazardLava0, function (sprite, location) {
     tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
@@ -33,19 +31,16 @@ scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.collectibleBlueCrysta
     info.changeScoreBy(1)
 })
 controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
-    if (jump < 2) {
-        jump += 1
+    if (JumpWater < 1) {
+        JumpWater += 1
         Player_2.vy = -150
     }
 })
 scene.onOverlapTile(SpriteKind.Projectile, sprites.builtin.field0, function (sprite, location) {
-    game.splash("Game Over")
-    tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
-    tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
+    game.gameOver(false)
 })
 function doSomething (num: number) {
     if (num < 5) {
-        mySprite = 1
         Player_1.ay = 300
         Player_2.ay = 300
         Tilemaps = [tilemap`level 1`, tilemap`level3`, tilemap`level11`]
@@ -53,7 +48,6 @@ function doSomething (num: number) {
         tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
         tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
     } else {
-        mySprite = 2
         Player_1.ay = 200
         Player_2.ay = 200
         Tilemaps = [tilemap`level 1`, tilemap`level3`, tilemap`level11`]
@@ -61,7 +55,7 @@ function doSomething (num: number) {
         tiles.placeOnTile(Player_1, tiles.getTileLocation(15, 14))
         tiles.placeOnTile(Player_2, tiles.getTileLocation(14, 14))
     }
-    if (Player_1.tileKindAt(TileDirection.Center, sprites.dungeon.chestClosed) && Player_2.tileKindAt(TileDirection.Center, sprites.dungeon.chestClosed)) {
+    if (Player_1.tileKindAt(TileDirection.Center, assets.tile`myTile1`) && Player_2.tileKindAt(TileDirection.Center, assets.tile`myTile0`)) {
         game.splash("You Win!")
     }
 }
@@ -78,7 +72,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sp
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
     if (!(Player_2.isHittingTile(CollisionDirection.Top))) {
-        jump = 0
+        JumpWater = 0
     }
     if (Player_2.isHittingTile(CollisionDirection.Right) || Player_2.isHittingTile(CollisionDirection.Left)) {
         Player_2.vy = 0
@@ -89,11 +83,11 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleRedCrystal, fu
     info.changeScoreBy(1)
 })
 let Tilemaps: tiles.TileMapData[] = []
-let mySprite = 0
+let JumpWater = 0
+let JumpFire = 0
 let lastTimestamp = 0
 let WaterDeaths = 0
 let FireDeaths = 0
-let jump = 0
 let Player_2: Sprite = null
 let Player_1: Sprite = null
 namespace userconfig {
@@ -108,7 +102,7 @@ Player_1.setScale(0.25, ScaleAnchor.Middle)
 scaling.scaleByPercent(Player_2, -75, ScaleDirection.Uniformly, ScaleAnchor.Middle)
 doSomething(game.askForNumber("You get 2 lives each character! Press 5-9 for extra help", 1))
 info.setScore(0)
-jump = 0
+let jump = 0
 FireDeaths = 0
 WaterDeaths = 0
 lastTimestamp = game.runtime()
