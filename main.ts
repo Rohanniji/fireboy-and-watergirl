@@ -126,7 +126,7 @@ FireDeaths = 0
 WaterDeaths = 0
 lastTimestamp = game.runtime()
 game.onUpdate(function () {
-    if (Player_1.tileKindAt(TileDirection.Center, assets.tile`myTile1`) && Player_2.tileKindAt(TileDirection.Center, assets.tile`myTile0`)) {
+    if (Player_1.tileKindAt(TileDirection.Center, assets.tile`myTile1`) && Player_2.tileKindAt(TileDirection.Center, assets.tile`myTile0`) || Player_1.tileKindAt(TileDirection.Center, sprites.dungeon.chestClosed) && Player_2.tileKindAt(TileDirection.Center, sprites.dungeon.chestClosed)) {
         game.gameOver(true)
     }
 })
